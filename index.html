@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorful Text Editor</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    #container {
+        width: 80%;
+        text-align: center;
+        display: flex;
+        flex-direction: column; /* Arrange items in a column */
+    }
+    #logo {
+        width: 300px; /* Adjust width as needed */
+        margin: auto; /* Center the logo horizontally */
+        margin-bottom: 20px; /* Add margin below the logo */
+    }
+    #editor {
+        width: 86%;
+        height: 200px; /* Adjust height as needed */
+        margin-bottom: 20px;
+        padding: 100px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        font-size: 14px; /* Adjust font size as needed */
+        resize: none;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 0 5px; /* Add margin between buttons */
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    button:active {
+        background-color: #3e8e41;
+    }
+</style>
+</head>
+<body>
+    <div id="container">
+        <img src="logo.png" alt="Logo" id="logo">
+        <textarea id="editor"></textarea>
+        <div>
+            <button onclick="saveText()">Save</button>
+            <button onclick="loadText()">Load</button>
+            <button onclick="clearText()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to save text to local storage
+        function saveText() {
+            var textToSave = document.getElementById('editor').value;
+            localStorage.setItem('savedText', textToSave);
+            alert('Text saved successfully!');
+        }
+
+        // Function to load text from local storage
+        function loadText() {
+            var savedText = localStorage.getItem('savedText');
+            if(savedText !== null) {
+                document.getElementById('editor').value = savedText;
+                alert('Text loaded successfully!');
+            } else {
+                alert('No saved text found!');
+            }
+        }
+
+        // Function to clear text and remove from local storage
+        function clearText() {
+            document.getElementById('editor').value = '';
+            localStorage.removeItem('savedText');
+            alert('Text cleared successfully!');
+        }
+
+        // Load saved text when page loads
+        window.onload = function() {
+            var savedText = localStorage.getItem('savedText');
+            if(savedText !== null) {
+                document.getElementById('editor').value = savedText;
+            }
+        };
+    </script>
+</body>
+</html>
